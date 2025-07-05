@@ -14,5 +14,4 @@ authors:
   - Di Li
 links:
   Paper: https://ieeexplore.ieee.org/abstract/document/9466443
-  Cite: assets/bibtex/wang2022efficientnet.bib
 ---
