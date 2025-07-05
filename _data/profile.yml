@@ -19,6 +19,12 @@ show_portrait: false
 portrait_caption: >-
   我是周楠，欢迎访问我的主页~
 
+research interests:
+- name: Pengcheng Laboratory
+  logo: assets/images/badges/cuhk-sz.png
+  position: Post-Doctoral Research Fellow (Supervisor is <a href="https://faculty.csu.edu.cn/guiweihua/zh_CN/index.htm">Prof. Weihua Gui</a>)
+  date: Sep. 2021 - Jul. 2024
+  
 education:
 - name: South China University of Technology
   logo: assets/images/badges/mpu_master.png
@@ -37,8 +43,9 @@ experience:
 
 
 service:
+- name: Young Editorial Board Member of Natural Science Journal of Hainan University 
 - name: Reviewer of IEEE Transactions on Industrial Informatics 
-- name: Reviewer of IEEE Transactions on Automation Science and Engineering 
+- name: Reviewer of IEEE Transactions on Industrial Electronics 
 - name: Reviewer of IEEE Transactions on Automation Science and Engineering 
 - name: Reviewer of IEEE Transactions on Systems, Man, and Cybernetics-Systems
 # Feel free to replace the footer text if you would like to, but I will greatly appreciate it 
