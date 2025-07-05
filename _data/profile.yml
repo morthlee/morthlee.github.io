@@ -14,8 +14,8 @@ github: morthlee
 short_bio: >-
   I’m Nan Zhou. My research interests include Intelligent Industrial Automation, Intelligent Edge Computing, and Reconfigurable Manufacturing Systems.  
 
-show_portrait: false
-#portrait_url: assets/images/photos/55651568.jpeg
+show_portrait: true
+portrait_url: assets/images/photos/zn.jpg
 portrait_caption: >-
   我是周楠，欢迎访问我的主页~
  
