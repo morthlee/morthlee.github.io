@@ -14,60 +14,33 @@ github: morthlee
 short_bio: >-
   I’m Nan Zhou. My primary research interests lie in Intelligent Industrial Automation and Intelligent Edge Computing.  
 
-show_portrait: true
-portrait_url: assets/images/photos/55651568.jpeg
+show_portrait: false
+#portrait_url: assets/images/photos/55651568.jpeg
 portrait_caption: >-
   我是周楠，欢迎访问我的主页~
 
 education:
-- name: Macao Polytechnic University
+- name: South China University of Technology
   logo: assets/images/badges/mpu_master.png
-  position: M.S. in Big Data and Internet of Things
-  date: Sep. 2022 - Jul. 2024
-- name: Henan Polytechnic University
+  position: Ph.D. in Mechatronics Engineering (Supervisor is <a href="https://www2.scut.edu.cn/smae/2016/0728/c21154a302650/page.htm">Prof. Di Li</a>)
+  date: Sep. 2013 - Jul. 2021
+- name: South China University of Technology
   logo: assets/images/badges/hpu_bs.png
-  position: B.S. in Computer Science (AI)
-  date: Sep. 2018 - Jul. 2022
+  position: B.S. in Mechanical Engineering and Automation
+  date: Sep. 2009 - Jul. 2013
   
 experience:
-- name: CUHK (SZ)
+- name: Pengcheng Laboratory
   logo: assets/images/badges/cuhk-sz.png
-  position: Research Assistant (Supervisor is <a href="https://wabyking.github.io/old.html">Benyou Wang</a>)
-  date: Sep. 2024 - Now
-- name: Qiyuan.Tech
-  logo: assets/images/badges/qiyuan.png
-  position: CTO, Reasercher
-  date: Oct. 2023 - Now
-- name: HKUST (GZ) 
-  logo: assets/images/badges/hkust-gz.png
-  position: Research Assistant (Supervisor is <a href="https://web.archive.org/web/20240717103203/https://facultyprofiles.hkust-gz.edu.cn/faculty-personal-page/BAI-Yun/yunbai">Yun Bai</a> and <a href="https://cee.rutgers.edu/xiang-liu">Xiang Liu</a>)
-  date: Feb. 2024 -	May 2024
+  position: Post-Doctoral Research Fellow (Supervisor is <a href="https://faculty.csu.edu.cn/guiweihua/zh_CN/index.htm">Prof. Weihua Gui</a>)
+  date: Sep. 2021 - Jul. 2024
 
-
-awards:
-- name: 🎫Kaggle Competitions Expert
-  date: 2025
-- name: 🥇Gold Medal of Kaggle AI Mathematical Olympiad - Progress Prize 2
-  date: 2025
-- name: 🎫Outstanding Award of JingDong Health - Global AI Innovation Competition
-  date: 2024
-- name: 🥇First Prize of Baidu PaddlePaddle AGI Hackathon
-  date: 2024
-- name: 🥉Third Prize of DiMTAIC (Organized by JingDong Health)
-  date: 2023
-- name: 🥉Third Prize of Baichuan Intelligence and Amazon Cloud AGI Hackathon
-  date: 2023
-- name: 🥈Silver Medal of Kaggle RSNA Screening Mammography Cancer Detection
-  date: 2023
-- name: 🎫Outstanding Award of IEEE UV 2022 Object Detection Challenge
-  date: 2022
-- name: 🎫<a href="https://www.paddlepaddle.org.cn/ppdemd?n=/ppdemd/%E7%8E%8B%E8%8D%A3%E8%83%9C">Baidu PaddlePaddle Developers Experts</a>
-  date: 2021
 
 service:
-- name: Reviewer of <a href="https://www.embs.org/jbhi/">Journal of Biomedical and Health Informatics (JBHI)</a>
-- name: Reviewer of <a href="https://2025.ieeeicme.org/">ICME 2025</a>
-
+- name: Reviewer of IEEE Transactions on Industrial Informatics 
+- name: Reviewer of IEEE Transactions on Automation Science and Engineering 
+- name: Reviewer of IEEE Transactions on Automation Science and Engineering 
+- name: Reviewer of IEEE Transactions on Systems, Man, and Cybernetics-Systems
 # Feel free to replace the footer text if you would like to, but I will greatly appreciate it 
 # if you keep the link to the template so that more people can benefit from it. Thanks!
  
