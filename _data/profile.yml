@@ -12,7 +12,7 @@ github: morthlee
 # wechat_prompt: >-
 #   Please tell me your <strong>name</strong> and <strong>affiliation</strong> (current or past) when adding my wechat. Thanks!
 short_bio: >-
-  I’m Nan Zhou. My primary research interests lie in Intelligent Industrial Automation and Intelligent Edge Computing.  
+  I’m Nan Zhou. My research interests include Intelligent Industrial Automation, Intelligent Edge Computing, and Reconfigurable Manufacturing Systems.  
 
 show_portrait: false
 #portrait_url: assets/images/photos/55651568.jpeg
@@ -21,29 +21,30 @@ portrait_caption: >-
 
 research interests:
 - name: Pengcheng Laboratory
-  logo: assets/images/badges/cuhk-sz.png
+  #logo: assets/images/badges/cuhk-sz.png
   position: Post-Doctoral Research Fellow (Supervisor is <a href="https://faculty.csu.edu.cn/guiweihua/zh_CN/index.htm">Prof. Weihua Gui</a>)
   date: Sep. 2021 - Jul. 2024
   
 education:
 - name: South China University of Technology
-  logo: assets/images/badges/mpu_master.png
+  #logo: assets/images/badges/mpu_master.png
   position: Ph.D. in Mechatronics Engineering (Supervisor is <a href="https://www2.scut.edu.cn/smae/2016/0728/c21154a302650/page.htm">Prof. Di Li</a>)
   date: Sep. 2013 - Jul. 2021
 - name: South China University of Technology
-  logo: assets/images/badges/hpu_bs.png
+  #logo: assets/images/badges/hpu_bs.png
   position: B.S. in Mechanical Engineering and Automation
   date: Sep. 2009 - Jul. 2013
   
 experience:
 - name: Pengcheng Laboratory
-  logo: assets/images/badges/cuhk-sz.png
+  #logo: assets/images/badges/cuhk-sz.png
   position: Post-Doctoral Research Fellow (Supervisor is <a href="https://faculty.csu.edu.cn/guiweihua/zh_CN/index.htm">Prof. Weihua Gui</a>)
   date: Sep. 2021 - Jul. 2024
 
 
 service:
 - name: Young Editorial Board Member of Natural Science Journal of Hainan University 
+- name: Reviewer of 自动化学报
 - name: Reviewer of IEEE Transactions on Industrial Informatics 
 - name: Reviewer of IEEE Transactions on Industrial Electronics 
 - name: Reviewer of IEEE Transactions on Automation Science and Engineering 
