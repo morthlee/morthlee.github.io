@@ -1,10 +1,25 @@
-name: test-actions
+name: Get Citation Data
 
-on:
-  workflow_dispatch:
+on: 
+ page_build: 
+ schedule:
+  - cron:  '0 6 * * 1'
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Hello World"
+    - uses: actions/checkout@v2
+    - name: Install Reqs
+      run: |
+        sudo apt-get install python3-setuptools
+    - name: Run
+      run: |
+        cd ./google_scholar_crawler
+        pip3 install -r requirements.txt
+        python3 main.py
+        git add "../assets/results/"
+        git config --global user.email "zhounan2012@msn.com"
+        git config --global user.name "morthlee"
+        git commit -m "* update `date '+%Y-%m-%d %H:%M:%S'`"
+        git push
