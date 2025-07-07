@@ -1,4 +1,4 @@
-name: Get Citation Data
+name: get_citation_data
 
 on: 
  page_build: 
