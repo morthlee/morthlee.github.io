@@ -16,7 +16,9 @@ jobs:
     - name: Run
       run: |
         cd ./google_scholar_crawler
-        pip3 install -r requirements.txt
+        echo "Start pip install"
+        pip3 install -r requirements.txt --no-cache-dir -v 
+        echo "pip install done"
         python3 main.py
         git add "../assets/results/"
         git config --global user.email "zhounan2012@msn.com"
