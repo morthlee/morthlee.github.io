@@ -43,6 +43,7 @@ service:
 - name: Reviewer of IEEE Transactions on Industrial Electronics 
 - name: Reviewer of IEEE Transactions on Automation Science and Engineering 
 - name: Reviewer of IEEE Transactions on Systems, Man, and Cybernetics-Systems
+- name: Reviewer of IEEE Transactions on Pattern Analysis and Machine Intelligence
 # Feel free to replace the footer text if you would like to, but I will greatly appreciate it 
 # if you keep the link to the template so that more people can benefit from it. Thanks!
  
