@@ -15,6 +15,7 @@ authors:
   - Shunchun Yao
   - Chunhua Yang
   - Weihua Gui
+cover:          "assets/images/covers/VECAT.png"
 links:
   Paper: https://ieeexplore.ieee.org/abstract/document/11436082
 ---
