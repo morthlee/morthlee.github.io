@@ -1,11 +1,19 @@
-from scholarly import scholarly
+from scholarly import scholarly, ProxyGenerator
 import json
 from datetime import datetime
 import os
 import time
 
-MAX_RETRIES = 3
+# Set up free proxy to bypass Google Scholar blocking
+pg = ProxyGenerator()
+success = pg.FreeProxies()
+if success:
+    scholarly.use_proxy(pg)
+    print("Proxy configured")
+else:
+    print("Warning: no proxy available")
 
+MAX_RETRIES = 3
 for attempt in range(MAX_RETRIES):
     try:
         print(f"Attempt {attempt + 1}/{MAX_RETRIES}")
