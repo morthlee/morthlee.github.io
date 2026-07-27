@@ -6,12 +6,15 @@ import time
 
 # Set up free proxy to bypass Google Scholar blocking
 pg = ProxyGenerator()
-success = pg.FreeProxies()
-if success:
-    scholarly.use_proxy(pg)
-    print("Proxy configured")
-else:
-    print("Warning: no proxy available")
+try:
+    success = pg.FreeProxies()
+    if success:
+        scholarly.use_proxy(pg)
+        print("Proxy configured")
+    else:
+        print("Warning: no proxy available, continuing without proxy")
+except Exception as e:
+    print(f"Warning: proxy setup failed ({e}), continuing without proxy")
 
 MAX_RETRIES = 3
 for attempt in range(MAX_RETRIES):
