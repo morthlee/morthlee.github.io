@@ -25,7 +25,7 @@ jobs:
     - name: Run
       run: |
         cd ./google_scholar_crawler
-        python main.py
+        python -u main.py
     - name: Commit and Push
       run: |
         git add assets/results/

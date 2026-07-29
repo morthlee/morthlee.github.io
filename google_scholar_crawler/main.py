@@ -1,32 +1,53 @@
-from scholarly import scholarly, ProxyGenerator
+from scholarly import scholarly
 import json
 from datetime import datetime
 import os
+import signal
 import time
+from contextlib import contextmanager
 
-# Set up free proxy to bypass Google Scholar blocking
-pg = ProxyGenerator()
-try:
-    success = pg.FreeProxies()
-    if success:
-        scholarly.use_proxy(pg)
-        print("Proxy configured")
-    else:
-        print("Warning: no proxy available, continuing without proxy")
-except Exception as e:
-    print(f"Warning: proxy setup failed ({e}), continuing without proxy")
 
 MAX_RETRIES = 3
+ATTEMPT_TIMEOUT_SECONDS = 60
+RETRY_DELAY_SECONDS = 10
+
+
+class ScholarTimeoutError(TimeoutError):
+    pass
+
+
+def timeout_handler(signum, frame):
+    raise ScholarTimeoutError(
+        f"Google Scholar request exceeded {ATTEMPT_TIMEOUT_SECONDS} seconds"
+    )
+
+
+@contextmanager
+def request_timeout(seconds):
+    if not hasattr(signal, "SIGALRM"):
+        yield
+        return
+
+    previous_handler = signal.signal(signal.SIGALRM, timeout_handler)
+    signal.alarm(seconds)
+    try:
+        yield
+    finally:
+        signal.alarm(0)
+        signal.signal(signal.SIGALRM, previous_handler)
+
+
 for attempt in range(MAX_RETRIES):
     try:
-        print(f"Attempt {attempt + 1}/{MAX_RETRIES}")
-        author = scholarly.search_author_id("zqfkhZcAAAAJ")
-        scholarly.fill(author, sections=['basics', 'indices', 'counts', 'publications'])
+        print(f"Attempt {attempt + 1}/{MAX_RETRIES}", flush=True)
+        with request_timeout(ATTEMPT_TIMEOUT_SECONDS):
+            author = scholarly.search_author_id("zqfkhZcAAAAJ")
+            scholarly.fill(author, sections=['basics', 'indices', 'counts', 'publications'])
         break
     except Exception as e:
-        print(f"Failed: {e}")
+        print(f"Failed: {e}", flush=True)
         if attempt < MAX_RETRIES - 1:
-            time.sleep(10)
+            time.sleep(RETRY_DELAY_SECONDS)
         else:
             raise
 
