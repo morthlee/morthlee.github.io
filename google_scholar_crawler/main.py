@@ -12,7 +12,9 @@ ATTEMPT_TIMEOUT_SECONDS = 60
 RETRY_DELAY_SECONDS = 10
 
 
-class ScholarTimeoutError(TimeoutError):
+# Derive from BaseException so scholarly's internal `except Exception`
+# retry loops cannot swallow the timeout and keep running forever.
+class ScholarTimeoutError(BaseException):
     pass
 
 
@@ -44,7 +46,7 @@ for attempt in range(MAX_RETRIES):
             author = scholarly.search_author_id("zqfkhZcAAAAJ")
             scholarly.fill(author, sections=['basics', 'indices', 'counts', 'publications'])
         break
-    except Exception as e:
+    except (Exception, ScholarTimeoutError) as e:
         print(f"Failed: {e}", flush=True)
         if attempt < MAX_RETRIES - 1:
             time.sleep(RETRY_DELAY_SECONDS)
