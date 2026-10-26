@@ -1,70 +1,82 @@
-from scholarly import scholarly
 import json
-from datetime import datetime
 import os
-import signal
-import time
-from contextlib import contextmanager
+import sys
+import urllib.error
+import urllib.parse
+import urllib.request
+from datetime import datetime
 
 
-MAX_RETRIES = 3
-ATTEMPT_TIMEOUT_SECONDS = 60
-RETRY_DELAY_SECONDS = 10
+AUTHOR_ID = "zqfkhZcAAAAJ"
+SERPAPI_URL = "https://serpapi.com/search.json"
+REQUEST_TIMEOUT_SECONDS = 60
+RESULTS_DIR = "../assets/results"
 
 
-# Derive from BaseException so scholarly's internal `except Exception`
-# retry loops cannot swallow the timeout and keep running forever.
-class ScholarTimeoutError(BaseException):
-    pass
+def warn(message):
+    # Shown as an annotation on the workflow run summary.
+    print(f"::warning::{message}", flush=True)
 
 
-def timeout_handler(signum, frame):
-    raise ScholarTimeoutError(
-        f"Google Scholar request exceeded {ATTEMPT_TIMEOUT_SECONDS} seconds"
-    )
+def fetch_author(api_key):
+    query = urllib.parse.urlencode({
+        "engine": "google_scholar_author",
+        "author_id": AUTHOR_ID,
+        "hl": "en",
+        "api_key": api_key,
+    })
+    with urllib.request.urlopen(f"{SERPAPI_URL}?{query}", timeout=REQUEST_TIMEOUT_SECONDS) as resp:
+        data = json.load(resp)
+    if "error" in data:
+        raise RuntimeError(data["error"])
+    return data
 
 
-@contextmanager
-def request_timeout(seconds):
-    if not hasattr(signal, "SIGALRM"):
-        yield
-        return
-
-    previous_handler = signal.signal(signal.SIGALRM, timeout_handler)
-    signal.alarm(seconds)
-    try:
-        yield
-    finally:
-        signal.alarm(0)
-        signal.signal(signal.SIGALRM, previous_handler)
+def cited_by_metric(data, name):
+    for row in data.get("cited_by", {}).get("table", []):
+        if name in row:
+            return row[name].get("all")
+    return None
 
 
-for attempt in range(MAX_RETRIES):
-    try:
-        print(f"Attempt {attempt + 1}/{MAX_RETRIES}", flush=True)
-        with request_timeout(ATTEMPT_TIMEOUT_SECONDS):
-            author = scholarly.search_author_id("zqfkhZcAAAAJ")
-            scholarly.fill(author, sections=['basics', 'indices', 'counts', 'publications'])
-        break
-    except (Exception, ScholarTimeoutError) as e:
-        print(f"Failed: {e}", flush=True)
-        if attempt < MAX_RETRIES - 1:
-            time.sleep(RETRY_DELAY_SECONDS)
-        else:
-            raise
+api_key = os.environ.get("SERPAPI_KEY")
+if not api_key:
+    warn("SERPAPI_KEY secret is not set; keeping existing citation data.")
+    sys.exit(0)
 
-name = author['name']
-author['updated'] = str(datetime.now())
-author['publications'] = {v['author_pub_id']:v for v in author['publications']}
-print(json.dumps(author, indent=2, default=str))
-os.makedirs('../assets/results', exist_ok=True)
-with open('../assets/results/gs_data.json', 'w') as outfile:
-    json.dump(author, outfile, ensure_ascii=False, default=str)
+try:
+    data = fetch_author(api_key)
+except (urllib.error.URLError, TimeoutError, RuntimeError, ValueError) as e:
+    warn(f"SerpApi request failed ({e}); keeping existing citation data.")
+    sys.exit(0)
+
+citations = cited_by_metric(data, "citations")
+if citations is None:
+    warn("SerpApi response has no citation count; keeping existing citation data.")
+    sys.exit(0)
+
+author_info = data.get("author", {})
+author = {
+    "scholar_id": AUTHOR_ID,
+    "name": author_info.get("name"),
+    "affiliation": author_info.get("affiliations"),
+    "interests": [i.get("title") for i in author_info.get("interests", [])],
+    "citedby": citations,
+    "hindex": cited_by_metric(data, "h_index"),
+    "i10index": cited_by_metric(data, "i10_index"),
+    "cites_per_year": {str(g["year"]): g["citations"] for g in data.get("cited_by", {}).get("graph", [])},
+    "updated": str(datetime.now()),
+}
+print(json.dumps(author, indent=2, ensure_ascii=False))
+
+os.makedirs(RESULTS_DIR, exist_ok=True)
+with open(f"{RESULTS_DIR}/gs_data.json", "w") as outfile:
+    json.dump(author, outfile, ensure_ascii=False)
 
 shieldio_data = {
     "schemaVersion": 1,
     "label": "citations",
-    "message": f"{author['citedby']}",
+    "message": f"{citations}",
 }
-with open('../assets/results/gs_data_shieldsio.json', 'w') as outfile:
+with open(f"{RESULTS_DIR}/gs_data_shieldsio.json", "w") as outfile:
     json.dump(shieldio_data, outfile, ensure_ascii=False)
